@@ -1,20 +1,19 @@
-int xspacing = 10;   // How far apart should each horizontal location be spaced
-int w;              // Width of entire wave
+int xspacing = 10;           // How far apart should each horizontal location be spaced
+int w;                       // Width of entire wave
+float theta = 0.0;           // Start angle at 0
+float amplitude = 75.0;      // Height of wave
+float dx;                    // Value for incrementing X, a function of period and xspacing
+float[] yvalues;             // Using an array to store height values for the wave
+float x;                     // fish x
+float y;                     // fish y
+float x1;                    // fishspring x
+float targetx;               // mouse x
+float springForce;           // springforce
+float damping;               // friction
+float stiffness;             // stiffness
+float velocity;              // vel
 
-float theta = 0.0;  // Start angle at 0
-float amplitude = 75.0;  // Height of wave
-float dx;  // Value for incrementing X, a function of period and xspacing
-float[] yvalues;  // Using an array to store height values for the wave
-float x;
-float y;
-float x1;
-float targetx;
-float springForce;
-float damping;
-float stiffness;
-float velocity;
-
-
+// init
 void setup() {
   size(1000, 800);
   smooth();
@@ -30,6 +29,7 @@ void setup() {
   targetx = 100;
 }
 
+// draw fish
 void fish()
 {
   stroke(0);
@@ -45,6 +45,7 @@ void fish()
   line(-90 + x,10 + y, 50, 205);
 }
 
+// draw fishspring
 void fishspring(float x1)
 {
     stroke(0);
@@ -60,10 +61,13 @@ void fishspring(float x1)
     line(-90 + x1,10 + 600, 50, 605);    
 }
 
+// draw
 void draw() {
   background(51, 204, 204);
   calcWave();
   renderWave();
+  
+  //fish
   if(mousePressed == true && mouseButton == LEFT){
   x = mouseX;
   y = mouseY;
@@ -92,6 +96,7 @@ void draw() {
       fish();
     }
   }
+  // fishspring
   if(mousePressed == true && mouseButton == RIGHT){
     targetx = mouseX;
     fishspring(targetx);
