@@ -16,6 +16,7 @@ float Scirclecount[];
 int ScircleMAX = 12;
 int circlescount;
 int keymouse;
+int count = 0;
 Circle[] circles = new Circle[100];
 
 class Circle{
@@ -25,7 +26,8 @@ class Circle{
   float size;
   float circlecolor[];
   
-  void init (float x, float y){
+  Circle (float x, float y,int stt){
+    st = stt;
     xPos = x;
     yPos = y;
     size = 50;
@@ -41,8 +43,6 @@ class Circle{
     ellipse(xPos,yPos,size,size);
   }
 }
-
-
 
 void setup(){
   size(800, 800);
@@ -172,5 +172,13 @@ void draw(){
     ellipse(x - sin( small1) * amplitude, y - cos(small1) * amplitude, 50, 50);
     break;
   }
+  for(int i = 0; i < count; i++){
+    if(circles[i].st == 1){
+      circles[i].update();
+    }
+  }
 }
-  
+void mousePressed(){
+  circles[count] = new Circle(mouseX,mouseY,1);
+  count++;
+}
