@@ -25,22 +25,31 @@ class CCircle extends OBJECT{
     y = 100;
     vx = random(-3, 3);
     vy = random(-3, 3);
+    
+    // if out of rect
     if(Rect.x > x + (r / 2) || Rect.x + Rect.wide  < x - (r / 2)
     || Rect.y  > y + (r / 2) || Rect.y + Rect.high < y - (r / 2)){
       state = 1;
     }
   }
-
+  
+  // if mousedragged
   void mouseDragged(){
+    
+    // if the pale of circle
       if((mouseX - x) * (mouseX - x) + (mouseY - y) * (mouseY - y) < r * r){
         if(mousePressed){        
           state = 2;
         }
+        // if mousereleased
         else{
+          
+          // if out of rect
           if(Rect.x - 5 > x + (r / 2) || Rect.x + Rect.wide +5 < x - (r / 2)
           || Rect.y - 5 > y + (r / 2) || Rect.y + Rect.high +5 < y - (r / 2)){
             state = 1;
           }
+          // if the pale of rect
           else if(Rect.x +5 < x - (r / 2) && Rect.x + Rect.wide -5 > x + (r / 2)
           && Rect.y +5 < y - (r / 2) && Rect.y + Rect.high -5 > y + (r / 2)){
             state = 0;
@@ -50,13 +59,17 @@ class CCircle extends OBJECT{
     }
   void Update(){
     
+    // handling of speed
     if(state == 1 || state == 0){
       x += vx;
       y += vy;
     }
     
     mouseDragged();
+    
+    // if out of window's display
     if(state == 1 || state == 0){
+      // collision detection
       if(0 > x - (r / 2) || x + (r / 2)> width){
         vx *= -1;
       }
@@ -64,12 +77,10 @@ class CCircle extends OBJECT{
         vy *= -1;
       }
     }
-
-    if(state == 2){
-      x = mouseX;
-      y = mouseY;
-    }
+    
+    // if out of rect
     if(state == 1){
+      // collision detection
       if(x+ (r / 2) > Rect.x -6 && x - (r / 2) < Rect.x + Rect.wide +6
       && y + (r / 2) > Rect.y +5 && y - (r / 2) < Rect.y + Rect.high -5){
         vx *= -1;
@@ -79,7 +90,10 @@ class CCircle extends OBJECT{
         vy *= -1;
       }
     }
+    
+    // if the pale of rect
     if(state == 0){
+      // collision detection
       if(x - (r / 2) < Rect.x + 6 || x + (r / 2) > Rect.x + Rect.wide -6){
         vx *= -1;
                }
@@ -87,6 +101,12 @@ class CCircle extends OBJECT{
         vy *= -1;
       }
     }
+    
+    // if mousedragged
+    if(state == 2){
+      x = mouseX;
+      y = mouseY;
+    }    
   }
   void Draw(){
     strokeWeight(1);
@@ -94,9 +114,11 @@ class CCircle extends OBJECT{
   }
 };
 
+// instantiation
 CRect Rect;
 ArrayList<CCircle> Circle;
 
+// init
 void setup(){
   size(800,800);
   Rect = new CRect();
@@ -106,9 +128,7 @@ void setup(){
   }
 }
 
-
 void draw(){
-
   background(255, 255, 255);
   Rect.Draw();
   for(int i = 0; i < Circle.size(); i++){
