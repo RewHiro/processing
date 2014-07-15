@@ -48,5 +48,4 @@ void draw(){
   Update();
   ellipse(cx[0],cy[0],r[0] * 2,r[0] * 2);
   ellipse(cx[1],cy[1],r[1] * 2,r[1] * 2);
-  println(theta[0]);
 }
