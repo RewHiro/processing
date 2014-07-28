@@ -18,24 +18,31 @@ void Update(){
   d[0] = sqrt((mouseX -cx[0]) * (mouseX -cx[0]) + (mouseY -cy[0]) * (mouseY -cy[0]));
   d[1] = sqrt((cx[0] - mouseX) * (cx[0] - mouseX ));  
   // first quadrant
-  if(cx[0] < mouseX && cy[0] > mouseY){
-    theta[0] = -acos(d[1] / d[0]);
-  }  
-  // second quadrant
-  else if(cx[0] > mouseX && cy[0] > mouseY){
-    theta[0] = -acos(-d[1] / d[0]);
+  if(d[0]> r[0]-r[1]){
+    if(cx[0] < mouseX && cy[0] > mouseY){
+      theta[0] = -acos(d[1] / d[0]);
+    }  
+    // second quadrant
+    else if(cx[0] > mouseX && cy[0] > mouseY){
+      theta[0] = -acos(-d[1] / d[0]);
+    }
+    // third quadrant
+    else if(cx[0] > mouseX && cy[0] < mouseY){
+      theta[0] = acos(-d[1] / d[0]);
+    }  
+    // fourth quadrant
+    else if(cx[0] < mouseX && cy[0] < mouseY){
+      theta[0] = acos(d[1] / d[0]);
+    }
+    cx[1] = cx[0] + (r[0] - r[1]) * cos(theta[0]);
+    cy[1] = cy[0] + (r[0] - r[1]) * sin(theta[0]);
   }
-  // third quadrant
-  else if(cx[0] > mouseX && cy[0] < mouseY){
-    theta[0] = acos(-d[1] / d[0]);
-  }  
-  // fourth quadrant
-  else if(cx[0] < mouseX && cy[0] < mouseY){
-    theta[0] = acos(d[1] / d[0]);
+  else{
+    cx[1] = mouseX;
+    cy[1] = mouseY;
   }
-  cx[1] = cx[0] + (r[0] - r[1]) * cos(theta[0]);
-  cy[1] = cy[0] + (r[0] - r[1]) * sin(theta[0]);
 }
+
 
 void draw(){
   background(255,255,255);
