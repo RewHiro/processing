@@ -1,3 +1,3 @@
 processing
 ==========
-processinで書いたプログラム
+processingで書いたプログラム
