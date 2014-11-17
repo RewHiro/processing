@@ -1,7 +1,7 @@
 void setup(){
   size(800,800,P3D);
   background(0);
-  noStroke();
+
 }
 
 float angle = 0;
@@ -16,6 +16,8 @@ PVector p3,              // upper right
 color Color)             
 {
  fill(Color);
+ beginShape(TRIANGLE);
+ noStroke();
  
  vertex(p0.x,p0.y,p0.z); 
  vertex(p1.x,p1.y,p1.z);
@@ -24,6 +26,8 @@ color Color)
  vertex(p3.x,p3.y,p3.z); 
  vertex(p1.x,p1.y,p1.z);
  vertex(p2.x,p2.y,p2.z);  
+ 
+ endShape();
 }
 
 void Box(
@@ -37,6 +41,7 @@ PVector p6,
 PVector p7,
 color Color)
 {
+
   Quad(p0,p1,p2,p3,Color);
   Quad(p4,p5,p6,p7,Color);
   
@@ -70,18 +75,18 @@ void draw(){
   translate(width/2,height/2);  
   angle += PI/120;
   background(0);  
-  beginShape(TRIANGLE);
+
   
   
-  
+  rotateX(angle);
+  rotateY(angle);  
   
   Box(pos,size,color(255,0,0));  
   
   
   
-  rotateX(angle);
-  rotateY(angle);
+
   
   
-  endShape();
+
 }
