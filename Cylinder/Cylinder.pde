@@ -59,21 +59,25 @@ color Color)
 {
   if(angle_num<3)return;
   for(int i = 0; i < angle_num; i++){
-    PVector p1_pos = new PVector(size.x*cos(TWO_PI/(angle_num)*i+TWO_PI/(angle_num/2))+pos.x,
+    
+    float theta = TWO_PI/(angle_num)*i+TWO_PI/(angle_num/2);
+    float delta_theta = TWO_PI/(angle_num)*(i+1)+TWO_PI/(angle_num/2);
+    
+    PVector p1_pos = new PVector(size.x*cos(theta)+pos.x,
                                 pos.y,
-                                  size.z*sin(TWO_PI/(angle_num)*i+TWO_PI/(angle_num/2))+pos.z);
+                                  size.z*sin(theta)+pos.z);
                                   
-    PVector p1_size = new PVector(size.x*cos(TWO_PI/(angle_num)*(i+1)+TWO_PI/(angle_num/2))+pos.x,
+    PVector p1_size = new PVector(size.x*cos(delta_theta)+pos.x,
                                 pos.y,
-                                  size.z*sin(TWO_PI/(angle_num)*(i+1)+TWO_PI/(angle_num/2))+pos.z);    
+                                  size.z*sin(delta_theta)+pos.z);    
                                   
-    PVector p2_pos = new PVector(size.x*cos(TWO_PI/(angle_num)*i+TWO_PI/(angle_num/2))+pos.x,
+    PVector p2_pos = new PVector(size.x*cos(theta)+pos.x,
                                 pos.y-size.y,
-                                  size.z*sin(TWO_PI/(angle_num)*i+TWO_PI/(angle_num/2))+pos.z);
+                                  size.z*sin(theta)+pos.z);
                                   
-    PVector p2_size = new PVector(size.x*cos(TWO_PI/(angle_num)*(i+1)+TWO_PI/(angle_num/2))+pos.x,
+    PVector p2_size = new PVector(size.x*cos(delta_theta)+pos.x,
                                 pos.y-size.y,
-                                  size.z*sin(TWO_PI/(angle_num)*(i+1)+TWO_PI/(angle_num/2))+pos.z);
+                                  size.z*sin(delta_theta)+pos.z);
                                   
     Quad(p2_pos,p2_size,p1_pos,p1_size,Color);                                  
   }
