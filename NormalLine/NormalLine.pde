@@ -4,6 +4,9 @@ PVector P2;
 PVector v1;
 PVector v2;
 
+float slope = 1;
+float intercept = 100;
+
 PVector mouse;
 
 PVector normal;
@@ -11,10 +14,11 @@ PVector normal;
 void setup(){
   size(800,800,P3D);
   background(255);
-  P1 = new PVector(-width/2,-height/2);
-  P2 = new PVector(width/2,height/2);
   
-  v1 = new PVector(1,1);
+  P1 = new PVector(-width/2,slope * (-width/2) + intercept);
+  P2 = new PVector(width/2,slope * (width/2) + intercept);
+  
+  v1 = new PVector(P2.x-P1.x,P2.y-P1.y);
   v2 = new PVector(0,0);
   
   mouse = new PVector(0,0);

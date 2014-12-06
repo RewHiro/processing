@@ -13,7 +13,7 @@ void setup(){
   background(255);
   
   P1 = new PVector(-width/2,a*(-width/2)+b);
-  P2 = new PVector(width/2,a*(height/2)+b);  
+  P2 = new PVector(width/2,a*(width/2)+b);  
   
   mouse = new PVector(0,0);
   normal = new PVector(0,0);
