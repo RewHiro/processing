@@ -1,12 +1,12 @@
-float player_width = 70;
-float player_height = 50;
-float player_x = 0 - player_width / 2, player_y = 300 - player_height / 2;
-float player_speed = 2;;
+PVector player_size = new PVector(70, 50);
+PVector player_pos = new PVector(0 - player_size.x / 2, 300 - player_size.y / 2);
 
+float player_speed = 3;
 class PlayerBullet{
   PVector pos;
   PVector size = new PVector(5, 5);
   float speed = 3;
+  boolean is_delete = false;
   
   PlayerBullet(float x, float y){
     pos = new PVector(x - size.x / 2, y);
@@ -18,6 +18,7 @@ class PlayerBullet{
   
   void update(){
     move();
+    delete();
   }
   
   void draw(){
@@ -28,9 +29,13 @@ class PlayerBullet{
     pos.y += -speed;
   }
   
+  void delete(){
+    if(!(pos.y < -height / 2))return;
+    is_delete = true;
+  }
+  
   boolean remove(){
-    if(!(pos.y < -height / 2))return false;
-    return true;
+    return is_delete;
   }
 };
 
@@ -38,23 +43,24 @@ ArrayList<PlayerBullet>player_bullets = new ArrayList<PlayerBullet>();
 
 void LeftKeyEvent(){
   if(!(keyCode == LEFT || key == 'a'))return;
-  player_x += -player_speed;
-  if(player_x < -width / 2){
-    player_x += player_speed;
+  player_pos.x += -player_speed;
+  if(player_pos.x < -width / 2){
+    player_pos.x += player_speed;
   }
 }
 
 void RightKeyEvent(){
   if(!(keyCode == RIGHT || key == 'd'))return;
-  player_x += player_speed;  
-  if(player_x + player_width > width / 2){
-    player_x += -player_speed;
+  player_pos.x += player_speed;  
+  if(player_pos.x + player_size.x > width / 2){
+    player_pos.x += -player_speed;
   }
 }
 
 void SpaceKeyEvent(){
   if(key != ' ' )return;
-  player_bullets.add(new PlayerBullet(player_x + player_width / 2,player_y));
+  if(player_bullets.size() == 10)return;
+  player_bullets.add(new PlayerBullet(player_pos.x + player_size.x / 2,player_pos.y));
 }
 
 void keyPressed(){
