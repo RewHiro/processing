@@ -1,9 +1,18 @@
+import ddf.minim.spi.*;
+import ddf.minim.signals.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.ugens.*;
+import ddf.minim.effects.*;
+
+Minim minim = new Minim(this);
 PImage[] invador_animation = new PImage[2];
 int anime = 0;
 int frame_count = 0;
 int stage = 1;
 int death_count;
 boolean is_death = false;
+AudioSample death_se;
 
 class Invador{
   PVector pos;
@@ -78,8 +87,16 @@ void setup(){
   size(800,800);
   invador_animation[0] = loadImage("invader_1.bmp");
   invador_animation[1] = loadImage("invader_2.bmp");
+  shot_se = minim.loadSample("shot1.mp3");
+  death_se = minim.loadSample("shot-struck1.mp3");
   Init();
 
+}
+
+void stop(){
+  shot_se.close();
+  minim.stop();
+  super.stop();
 }
 
 boolean hit(PVector a_pos, PVector a_size, PVector b_pos, PVector b_size){
@@ -129,6 +146,7 @@ void draw(){
         invador.is_delete = true;
         bullet.is_delete = true;
         death_count--;
+        death_se.trigger();
         break;
       }
     }

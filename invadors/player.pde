@@ -1,5 +1,6 @@
 PVector player_size = new PVector(70, 50);
 PVector player_pos = new PVector(0 - player_size.x / 2, 300 - player_size.y / 2);
+AudioSample shot_se;
 
 float player_speed = 3;
 class PlayerBullet{
@@ -60,6 +61,7 @@ void RightKeyEvent(){
 void SpaceKeyEvent(){
   if(key != ' ' )return;
   if(player_bullets.size() == 10)return;
+  shot_se.trigger();
   player_bullets.add(new PlayerBullet(player_pos.x + player_size.x / 2,player_pos.y));
 }
 
